@@ -9,10 +9,12 @@ pipeline {
             steps {
                 sh 'pip3 install -r requirements.txt'
                 sh 'python mlb_report_builder.py'
+                echo "got here"
             }
         }
     }
     post('Email Report') {
+        echo "got to the email"
         success {
             archiveArtifacts artifacts: '**/*.xlsx', onlyIfSuccessful: true
             emailext attachLog: true, attachmentsPattern: "mlbreport.xlsx",
